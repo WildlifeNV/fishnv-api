@@ -11,12 +11,12 @@ const getSpeciesByName = (fastify) => async ({ name }) => {
 }
 
 export default fp(async (fastify, opts, next) => {
-  const handlers = {
+  const controllers = {
     getAllSpecies: getAllSpecies(fastify),
     getSpeciesByName: getSpeciesByName(fastify)
   }
 
-  fastify.decorate('species', handlers)
+  fastify.decorate('species', controllers)
 
   next()
 })
