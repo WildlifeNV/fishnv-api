@@ -1,0 +1,44 @@
+{
+  "name": "fishnv-api-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap --no-esm",
+    "start": "fastify start -l info src/app.js",
+    "dev": "fastify start -w -l info -P src/app.js",
+    "prettier:check": "prettier --check src",
+    "prettier:write": "prettier --write src",
+    "lint": "eslint src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "desm": "^1.1.0",
+    "fastify": "^3.0.0",
+    "fastify-autoload": "^3.3.1",
+    "fastify-cli": "^2.9.1",
+    "fastify-env": "^2.1.0",
+    "fastify-plugin": "^3.0.0",
+    "fastify-print-routes": "^0.4.1",
+    "fastify-sensible": "^3.1.0",
+    "fastify-swagger": "^4.6.0",
+    "pg-promise": "^10.10.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "tap": "^14.11.0"
+  }
+}
