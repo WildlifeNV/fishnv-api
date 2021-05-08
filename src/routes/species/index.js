@@ -1,29 +1,31 @@
-import handlers from './controllers.js'
-
-// const getAllSpecies = async ({ db }) => {
-//   const sql = 'select * from species'
-//   return await db.manyOrNone(sql)
-// }
+import services from './services.js'
 
 export default async function (fastify, opts) {
-  fastify.register(handlers)
+  fastify.register(services)
 
+  // route declarations, use full route object
   fastify.route({
     method: 'GET',
     path: '/',
-    handler: async (request, reply) => {
-      const data = await fastify.species.getAllSpecies()
-      return data
-    }
+    handler: getSpecies
   })
 
   fastify.route({
     method: 'GET',
     path: '/:name',
-    handler: async (request, reply) => {
-      const { name } = request.params
-      const data = await fastify.species.getSpeciesByName({ name })
-      return data
-    }
+    handler: getSpeciesByName
   })
+}
+
+// Declare route handlers
+// this = fastify context
+async function getSpecies (req, reply) {
+  const data = await this.species.getAllSpecies()
+  return data
+}
+
+async function getSpeciesByName (req, reply) {
+  const { name } = req.params
+  const data = await this.species.getSpeciesByName({ name })
+  return data
 }
