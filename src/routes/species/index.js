@@ -1,4 +1,5 @@
 import services from './services.js'
+import { speciesByNameSchema } from './schemas.js'
 
 export default async function (fastify, opts) {
   fastify.register(services)
@@ -12,20 +13,36 @@ export default async function (fastify, opts) {
 
   fastify.route({
     method: 'GET',
-    path: '/:name',
-    handler: getSpeciesByName
+    path: '/:id',
+    schema: speciesByNameSchema,
+    handler: getSpeciesById
+  })
+
+  fastify.route({
+    method: 'GET',
+    path: '/:id/fish-entries',
+    handler: getFishEntries
   })
 }
 
 // Declare route handlers
-// this = fastify context
+// this = fastify context, this.species = fastify.species
 async function getSpecies (req, reply) {
-  const data = await this.species.getAllSpecies()
+  const data = await this.species.getAll()
   return data
 }
 
-async function getSpeciesByName (req, reply) {
-  const { name } = req.params
-  const data = await this.species.getSpeciesByName({ name })
+async function getSpeciesById (req, reply) {
+  const { id } = req.params
+  const data = await this.species.getById({ id })
+  return data
+}
+
+async function getFishEntries ({ params, query }, reply) {
+  const { id } = params
+  // eslint-disable-next-line camelcase
+  const { page, per_page } = query
+
+  const data = await this.species.getFishEntries({ id, page, per_page })
   return data
 }

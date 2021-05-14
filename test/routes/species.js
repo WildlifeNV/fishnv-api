@@ -11,13 +11,13 @@ tap.test('GET /species', async (tap) => {
   tap.ok(Object.keys(body[0]).includes('id', 'species'))
 })
 
-tap.test('GET /species/:name', async (tap) => {
+tap.test('GET /species/:id', async (tap) => {
   const server = await build(tap)
 
   tap.test('the species exists in the db', async (tap) => {
     const response = await server.inject({
       mehtod: 'GET',
-      url: '/species/Micropterus salmoides'
+      url: '/species/a7d8eb67-c571-4c0d-8844-75fb00a6ac69'
     })
     const body = response.json()
 
@@ -28,7 +28,7 @@ tap.test('GET /species/:name', async (tap) => {
   tap.test('the species doesn\'t exist in the database', async (tap) => {
     const response = await server.inject({
       method: 'GET',
-      url: '/species/foo bar'
+      url: '/species/a7d8eb67-1111-1111-1111-75fb00a6ac69'
     })
 
     tap.equal(response.statusCode, 200, 'statusCode is 200')

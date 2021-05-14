@@ -26,5 +26,7 @@ export default fp(async (fastify, opts, next) => {
       done()
     })
 
+  fastify.decorate('pgp', pgp)
+
   next()
 }, { name: 'db' })
