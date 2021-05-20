@@ -11,12 +11,15 @@ const speciesParams = {
   type: 'object',
   properties: {
     id: {
-      type: 'string'
+      type: 'string',
+      description: 'UUID of the species from the database.'
     }
   }
 }
 
-const speciesByNameSchema = {
+const speciesIdSchema = {
+  description: 'Get a species by ID.',
+  tags: ['species'],
   params: speciesParams,
   response: {
     200: {
@@ -32,5 +35,5 @@ const speciesByNameSchema = {
 export {
   speciesObj,
   speciesParams,
-  speciesByNameSchema
+  speciesIdSchema
 }

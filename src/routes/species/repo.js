@@ -26,7 +26,6 @@ const SpeciesRepo = ({ db, pgp }) => {
     const concat = pgp.helpers.concat([fishEntriesSql, countSql])
 
     const [fishEntries, total] = await db.multi(concat)
-    console.log({ fishEntries, total })
     return {
       fishEntries,
       total: total[0].count

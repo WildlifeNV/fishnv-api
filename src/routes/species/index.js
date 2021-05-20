@@ -1,5 +1,5 @@
 import services from './services.js'
-import { speciesByNameSchema } from './schemas.js'
+import { speciesIdSchema } from './schemas.js'
 
 export default async function (fastify, opts) {
   fastify.register(services)
@@ -14,7 +14,7 @@ export default async function (fastify, opts) {
   fastify.route({
     method: 'GET',
     path: '/:id',
-    schema: speciesByNameSchema,
+    schema: speciesIdSchema,
     handler: getSpeciesById
   })
 
