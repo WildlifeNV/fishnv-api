@@ -1,5 +1,5 @@
 import { join } from 'desm'
-import { loadQueryFiles } from '../../utils/pgpUtils.js'
+import { loadQueryFiles, rewriteNullAsObj } from '../../utils/pgpUtils.js'
 
 const FishableWatersRepo = ({ db, pgp }) => {
   const qf = loadQueryFiles(join(import.meta.url, './sql'))
@@ -17,8 +17,18 @@ const FishableWatersRepo = ({ db, pgp }) => {
     return await db.manyOrNone(qf.getAll, { where: whereClause })
   }
 
+  const getById = async ({ id }) => {
+    return await db.oneOrNone(qf.getById, { id }, rewriteNullAsObj)
+  }
+
+  const getWaterRecords = async ({ id }) => {
+    return await db.manyOrNone(qf.getWaterRecords, { id })
+  }
+
   return {
-    getAll
+    getAll,
+    getById,
+    getWaterRecords
   }
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // /fishable-waters schema
 const fishableWatersQuerystringProps = {
   species: {
@@ -105,6 +106,8 @@ const fishableWatersResponseProps = {
 }
 
 const fishableWatersSchema = {
+  description: 'Get all the fishable waters in Nevada, or a subset using the query string parameters.',
+  tags: ['fishable-waters'],
   querystring: {
     type: 'object',
     additionalProperties: false,
@@ -122,4 +125,61 @@ const fishableWatersSchema = {
   }
 }
 
-export { fishableWatersSchema }
+// /fishable-waters/:id schema
+const fishableWatersIdParams = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string',
+      description: 'An UUID for a fishable water.'
+    }
+  }
+}
+
+const fishableWatersIdResponseProps = {
+  id: { type: 'string' },
+  water_name: { type: 'string' },
+  label: { type: 'string' },
+  region: { type: 'string' },
+  county: { type: 'string' },
+  species: {
+    type: 'array',
+    items: { type: 'string' }
+  },
+  geojson: {
+    description: 'A Line, Multiline geojson object if the water_type is a linear feature. A Polygon, or MultiPolygon if the water_type is a water body feature.',
+    type: 'object',
+    properties: {
+      type: { type: 'string' },
+      coordinates: { type: 'array' }
+    },
+    additionalProperties: false
+  }
+}
+
+const fishableWatersIdSchema = {
+  description: 'Get a fishable water by its ID.',
+  tags: ['fishable-waters'],
+  params: fishableWatersIdParams,
+  response: {
+    200: {
+      description: 'Data realted to an individual fishable water.',
+      type: 'object',
+      additionalProperties: false,
+      properties: fishableWatersIdResponseProps
+    }
+  }
+}
+
+// /fishable-waters/:id/water-records schema
+const fishableWaters_id_waterRecords = {
+  description: 'Get record fish entries for a by fishable water ID.',
+  tags: ['fishable-waters'],
+  params: fishableWatersIdParams
+}
+
+export {
+  fishableWatersSchema,
+  fishableWatersIdSchema,
+  fishableWaters_id_waterRecords
+}
