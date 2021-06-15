@@ -28,6 +28,12 @@ export default async function (fastify, opts) {
     schema: waterRecordsSchema,
     handler: getWaterRecords
   })
+
+  fastify.route({
+    method: 'GET',
+    url: '/:id/nearby-waters',
+    handler: getNearbyWaters
+  })
 }
 
 async function getFishableWaters (req, reply) {
@@ -48,6 +54,13 @@ async function getFishableWatersById (req, reply) {
 async function getWaterRecords (req, reply) {
   const { id } = req.params
   const data = await this.fishableWaters.getWaterRecords({ id })
+
+  return data
+}
+
+async function getNearbyWaters (req, reply) {
+  const { id } = req.params
+  const data = await this.fishableWaters.getNearbyWaters({ id })
 
   return data
 }

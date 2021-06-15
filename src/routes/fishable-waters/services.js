@@ -18,10 +18,15 @@ export default fp(async (fastify, opts, next) => {
     return await fishableWaters.getWaterRecords({ id })
   }
 
+  const getNearbyWaters = async ({ id }) => {
+    return await fishableWaters.getNearbyWaters({ id })
+  }
+
   fastify.decorate('fishableWaters', {
     getAll,
     getById,
-    getWaterRecords
+    getWaterRecords,
+    getNearbyWaters
   })
   next()
 })
