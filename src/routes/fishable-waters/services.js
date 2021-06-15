@@ -22,11 +22,16 @@ export default fp(async (fastify, opts, next) => {
     return await fishableWaters.getNearbyWaters({ id })
   }
 
+  const getMercuryAdvisories = async ({ id }) => {
+    return await fishableWaters.getMercuryAdvisories({ id })
+  }
+
   fastify.decorate('fishableWaters', {
     getAll,
     getById,
     getWaterRecords,
-    getNearbyWaters
+    getNearbyWaters,
+    getMercuryAdvisories
   })
   next()
 })

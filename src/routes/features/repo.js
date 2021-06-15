@@ -9,6 +9,7 @@ const FeatureRepo = ({ db, pgp }) => {
   }
 
   const getGeojson = async ({ table, query }) => {
+    console.log({ query })
     const where = formatWhere(query, pgp.as.format)
     const rows = await db.one(qf.getGeojson, { table, where }, rewriteNullAsObj)
     return rows.geojson
@@ -16,6 +17,11 @@ const FeatureRepo = ({ db, pgp }) => {
 
   const getGeojsonById = async ({ table, id }) => {
     const rows = await db.one(qf.getGeojsonById, { table, id }, rewriteNullAsObj)
+    return rows.geojson
+  }
+
+  const getFishableWatersBySpeciesIdGeojson = async ({ id }) => {
+    const rows = await db.one(qf.getWaterbodiesBySpeciesGeojson, { id }, rewriteNullAsObj)
     return rows.geojson
   }
 
@@ -30,6 +36,11 @@ const FeatureRepo = ({ db, pgp }) => {
     return rows.geobuf
   }
 
+  const getFishableWatersBySpeciesIdGeobuf = async ({ id }) => {
+    const rows = await db.one(qf.getWaterbodiesBySpeciesGeobuf, { id })
+    return rows.geobuf
+  }
+
   const getMvt = async ({ table, z, x, y }) => {
     const rows = await db.one(qf.getMvt, { table, z, x, y })
     return rows.mvt
@@ -39,8 +50,10 @@ const FeatureRepo = ({ db, pgp }) => {
     getFeaturesList,
     getGeojson,
     getGeojsonById,
+    getFishableWatersBySpeciesIdGeojson,
     getGeobuf,
     getGeobufById,
+    getFishableWatersBySpeciesIdGeobuf,
     getMvt
   }
 }

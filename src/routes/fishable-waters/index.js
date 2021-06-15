@@ -34,6 +34,12 @@ export default async function (fastify, opts) {
     url: '/:id/nearby-waters',
     handler: getNearbyWaters
   })
+
+  fastify.route({
+    method: 'GET',
+    url: '/:id/mercury-advisories',
+    handler: getMercuryAdvisories
+  })
 }
 
 async function getFishableWaters (req, reply) {
@@ -61,6 +67,13 @@ async function getWaterRecords (req, reply) {
 async function getNearbyWaters (req, reply) {
   const { id } = req.params
   const data = await this.fishableWaters.getNearbyWaters({ id })
+
+  return data
+}
+
+async function getMercuryAdvisories (req, reply) {
+  const { id } = req.params
+  const data = await this.fishableWaters.getMercuryAdvisories({ id })
 
   return data
 }

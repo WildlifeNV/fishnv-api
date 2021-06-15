@@ -55,7 +55,7 @@ FROM fish_entries
     ) AS tc ON fish_entries.id = tc.id
   JOIN fishable_waters ON fish_entries.water_id = fishable_waters.id
 $<where:raw>
-ORDER BY fish_entries.fish_weight DESC
+ORDER BY tc.species, fish_entries.fish_weight DESC
 LIMIT $<limit>
 OFFSET $<offset>
 -- $<order:raw>

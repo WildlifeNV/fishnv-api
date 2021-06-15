@@ -7,18 +7,22 @@ export default fp(async (fastify, opts, next) => {
   const getFeaturesList = async () => await features.getFeaturesList()
 
   const getFeatures = async ({ table, format, query }) => {
-    let qs
-
-    if (Object.keys(query).length > 0) {
-      const values = query.id.split(',')
-      qs = { display_name: values }
-    }
+    const { species_id: speciesId } = query
+    console.log({ query })
 
     if (format === 'geojson') {
-      return await features.getGeojson({ table, query: qs })
+      if (Object.keys(query).length) {
+        return await features.getFishableWatersBySpeciesIdGeojson({ id: speciesId })
+      }
+
+      return await features.getGeojson({ table, query: undefined })
     }
     if (format === 'geobuf' || format === 'pbf') {
-      return await features.getGeobuf({ table, query: qs })
+      if (Object.keys(query).length) {
+        return await features.getFishableWatersBySpeciesIdGeobuf({ id: speciesId })
+      }
+
+      return await features.getGeobuf({ table, query: undefined })
     }
     return {}
   }

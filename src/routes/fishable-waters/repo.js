@@ -29,11 +29,16 @@ const FishableWatersRepo = ({ db, pgp }) => {
     return await db.manyOrNone(qf.getNearbyWaters, { id })
   }
 
+  const getMercuryAdvisories = async ({ id }) => {
+    return await db.manyOrNone(qf.getMercuryAdvisories, { id })
+  }
+
   return {
     getAll,
     getById,
     getWaterRecords,
-    getNearbyWaters
+    getNearbyWaters,
+    getMercuryAdvisories
   }
 }
 
