@@ -20,3 +20,12 @@ const start = async () => {
 }
 
 start()
+
+const closeGracefully = async (signal) => {
+  fastify.log.fatal(`Received signal to terminate ${signal}`)
+  await fastify.close()
+  process.exit()
+}
+
+process.on('SIGINT', closeGracefully)
+process.on('SIGTERM', closeGracefully)

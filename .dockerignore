@@ -1,0 +1,27 @@
+# ignore git
+.git
+.gitignore
+
+# ignore docker
+Dockerfile
+.dockerignore
+
+# ignore node
+node_modules
+npm-debug.log
+.npmrc
+.nyc_output
+test
+
+# ignore env, config, and temp files
+**/*.env
+**/*.env.*
+**/*.editorconfig
+**/*.eslintrc.json
+**/*.prettierrc
+
+# ignore vscode
+.vscode
+
+# ignore MacOS
+**/*.DS_Store
