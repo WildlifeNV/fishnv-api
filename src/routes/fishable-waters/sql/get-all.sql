@@ -4,6 +4,7 @@ SELECT
   fw.label,
   fw.region,
   fw.county,
+  fw.water_type,
   species.species,
   json_build_array(
     st_Y(st_PointOnSurface(fw.geom)),

@@ -95,6 +95,7 @@ const fishableWatersResponseProps = {
   label: { type: 'string' },
   region: { type: 'string' },
   county: { type: 'string' },
+  water_type: { type: 'string' },
   species: {
     type: 'array',
     items: { type: 'string' }
