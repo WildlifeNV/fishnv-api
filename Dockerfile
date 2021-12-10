@@ -1,7 +1,7 @@
 # BUILD IMAGE -----------------------------------------------------------------
 FROM node:14.17.4-alpine3.14 AS build
 WORKDIR /usr/src/app
-COPY package*.json /usr/src/app
+COPY package*.json /usr/src/app/
 RUN npm ci --only=production
 
 # PRODUCTION IMAGE ------------------------------------------------------------
@@ -14,8 +14,8 @@ ENV DBURI postgres://localhost:5432/fishnv
 USER node
 WORKDIR /usr/src/app
 
-COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules
-COPY --chown=node:node . /usr/src/app
+COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules/
+COPY --chown=node:node . /usr/src/app/
 
 EXPOSE 3000
 CMD ["dumb-init", "node", "src/server.js"]
