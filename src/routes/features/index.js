@@ -4,6 +4,10 @@ import services from './services.js'
 export default async function (fastify, opts) {
   fastify.register(services)
 
+  // fetch spatial table sources to get property values
+  const spatialTableSources = await fastify.db.many('select * from spatial_table_sources')
+  fastify.decorate('spatialTables', spatialTableSources)
+
   // route declarations for route prefix: /features
   fastify.route({
     method: 'GET',
@@ -63,7 +67,9 @@ async function onGetFeature (req, reply) {
 
 async function onGetMvt (req, reply) {
   const { table, z, x, y } = req.params
-  const mvt = await this.features.getMvt({ table, z, x, y })
+  const sourceTable = this.spatialTables.filter(item => item.table_name === table)
+  const columns = Object.keys(sourceTable[0].properties)
+  const mvt = await this.features.getMvt({ table, columns, z, x, y })
 
   if (mvt.length === 0) { reply.code(204) }
 
