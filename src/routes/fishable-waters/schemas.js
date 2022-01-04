@@ -147,14 +147,67 @@ const fishableWatersIdResponseProps = {
     type: 'array',
     items: { type: 'string' }
   },
-  geojson: {
-    description: 'A Line, Multiline geojson object if the water_type is a linear feature. A Polygon, or MultiPolygon if the water_type is a water body feature.',
+  nearby_waters: {
+    type: 'array',
+    description: 'An array of nearby waters. The list of nearby waters is limited to 10 items or all the waters < 10 miles from the current water, whichever is shorter.',
+    items: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        knn_water_id: {
+          type: 'string',
+          description: 'The id of the nearby water.'
+        },
+        knn_water_name: {
+          type: 'string',
+          description: 'The name of the nearby water.'
+        },
+        distance: {
+          type: 'number',
+          description: 'Distance (in miles) from the water of interest to the nearby water.'
+        }
+      }
+    }
+  },
+  spatial_metadata: {
     type: 'object',
+    description: 'Spatial metadata for the water.',
+    additionalProperties: false,
     properties: {
-      type: { type: 'string' },
-      coordinates: { type: 'array' }
-    },
-    additionalProperties: false
+      geometry_type: {
+        type: 'string',
+        description: 'The geometry type. From PostGIS ST_GeometryType function. Either ST_MultiPolygon or ST_MultiLineString.'
+      },
+      spatial_dimensions: {
+        type: 'number',
+        description: 'Either the area (square feet for ST_MultiPolygon) or length (feet for ST_MulitLineString) of the water.'
+      },
+      centroid: {
+        type: 'array',
+        description: 'Not the true centroid, but a point on the geometry.',
+        maxItems: 2,
+        items: { type: 'number' }
+      },
+      bbox: {
+        type: 'object',
+        description: 'The bounding box for the water. Formatted with the southwest corner and northeast corner.',
+        additionalProperties: false,
+        properties: {
+          sw: {
+            type: 'array',
+            description: 'Coordinates of the southwest corner of the bounding box for the water.',
+            maxItems: 2,
+            items: { type: 'number' }
+          },
+          ne: {
+            type: 'array',
+            description: 'Coordinates of the northeast corner of the bounding box for the water.',
+            maxItems: 2,
+            items: { type: 'number' }
+          }
+        }
+      }
+    }
   }
 }
 
