@@ -144,8 +144,91 @@ const fishableWatersIdResponseProps = {
   region: { type: 'string' },
   county: { type: 'string' },
   species: {
+
     type: 'array',
     items: { type: 'string' }
+  },
+  water_records: {
+    type: 'array',
+    description: 'The largest fish of each species caught in this fishable water.',
+    items: {
+      type: 'object',
+      description: 'A water record entry.',
+      additionalProperties: false,
+      properties: {
+        species: {
+          type: 'string',
+          description: ''
+        },
+        fish_weight: {
+          type: 'number',
+          description: 'The weight, in ounces, of the fish.'
+        },
+        pounds: {
+          type: 'integer',
+          description: 'The pounds portion of the fish_weight. This + ounces = fish_weight.'
+        },
+        ounces: {
+          type: 'integer',
+          description: 'The ounces portion of the fish_weight. This + pounds = fish_weight.'
+        }
+      }
+    }
+  },
+  fish_entries: {
+    type: 'array',
+    description: '',
+    items: {
+      type: 'object',
+      description: '',
+      additionalProperties: false,
+      properties: {
+        id: {
+          type: 'string',
+          description: 'The record ID for this fish entry.'
+        },
+        species_id: {
+          type: 'string',
+          description: 'The species ID for this entry.'
+        },
+        species: {
+          type: 'string',
+          description: 'The species of this entry.'
+        },
+        water_name: {
+          type: 'string',
+          description: 'The water this species was caught in.'
+        },
+        fish_weight: {
+          type: 'number',
+          description: 'The weight, in ounces, of the fish.'
+        },
+        pounds: {
+          type: 'integer',
+          description: 'The pounds portion of the fish_weight. This + ounces = fish_weight.'
+        },
+        ounces: {
+          type: 'integer',
+          description: 'The ounces portion of the fish_weight. This + pounds = fish_weight.'
+        },
+        angler_name: {
+          type: 'string',
+          description: 'The angler that caught this fish.'
+        },
+        angler_state: {
+          type: 'string',
+          description: 'The state the angler is from.'
+        },
+        year_caught: {
+          type: 'integer',
+          description: 'The year this entry was caught.'
+        },
+        record_rank: {
+          type: 'integer',
+          description: 'The rank of this entry based on the weight for this water. 1 = largest, n = smallest. Where n is the number of fish caught for this species and this water.'
+        }
+      }
+    }
   },
   nearby_waters: {
     type: 'array',
