@@ -90,11 +90,10 @@ const fishableWatersQuerystringProps = {
 }
 
 const fishableWatersResponseProps = {
-  id: { type: 'string' },
+  id: { type: 'integer' },
   water_name: { type: 'string' },
-  label: { type: 'string' },
-  region: { type: 'string' },
-  county: { type: 'string' },
+  regions: { type: 'string' },
+  counties: { type: 'string' },
   water_type: { type: 'string' },
   species: {
     type: 'array',
