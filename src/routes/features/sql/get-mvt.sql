@@ -11,5 +11,5 @@ mvtgeom AS (
   WHERE st_intersects(t.geom, st_transform(bounds.geom, 4326)) 
 )
 
-SELECT st_asmvt(mvtgeom.*, $<table>, 4096, 'geom') AS mvt
+SELECT st_asmvt(mvtgeom.*, $<table>, 4096, 'geom', 'id') AS mvt
 FROM mvtgeom;
