@@ -251,6 +251,20 @@ const fishableWatersIdResponseProps = {
       }
     }
   },
+  health_advisories: {
+    type: 'array',
+    description: 'An array of health advisories for the selected water. These include things like mercury advisories.',
+    items: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        id: { type: 'integer', description: 'The advisory ID.' },
+        species: { type: 'string', description: 'The target species for the advisory.' },
+        meals_per_month: { type: 'number', description: 'The maximum number of 8 ounce meals per month that can be consumed.' },
+        location_description: { type: 'string', description: 'A target location where the advisory is in effect.' }
+      }
+    }
+  },
   spatial_metadata: {
     type: 'object',
     description: 'Spatial metadata for the water.',
